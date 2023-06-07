@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         SizedBox(
-                          height: 1,
+                          height: 2,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
