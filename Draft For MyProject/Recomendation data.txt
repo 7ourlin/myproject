@@ -1,0 +1,36 @@
+ 
+///Recommendation button automatic-build
+
+
+SizedBox(
+                height: 40,
+                child: ListView.builder(
+                  itemCount: recommendation.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 90,
+                      margin: const EdgeInsets.all(4),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            side: MaterialStatePropertyAll(
+                              BorderSide(color: Colors.grey.shade300),
+                            ),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            elevation: MaterialStateProperty.all(0),
+                            backgroundColor:
+                                const MaterialStatePropertyAll(Colors.white)),
+                        onPressed: () {},
+                        child: Text(
+                          recommendation[index].toString(),
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1048841997076",
+    "project_id": "constructour-92fa3",
+    "storage_bucket": "constructour-92fa3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048841997076:android:14e5fde4c24986d8e0d001",
+        "android_client_info": {
+          "package_name": "com.example.myproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048841997076-t8i1potc909dvlkihte1n7cgnjh5udqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCLmJ8cSf0GD4PFQJGfIMOCA0cVJRrBNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048841997076-t8i1potc909dvlkihte1n7cgnjh5udqu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1048841997076-abh9jics1a6i7bb9a617aee6m9g4mqgd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myproject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
