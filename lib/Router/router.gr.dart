@@ -15,21 +15,21 @@ import 'package:auto_route/auto_route.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
 
 import '../Core/auth_flow_page.dart' as _i10;
-import '../Firebase_Authentication/firebase_authentication.dart' as _i9;
+import '../Firebase_Authentication/firebase_authentication.dart' as _i8;
 import '../ForgotPW/forgotpw.dart' as _i2;
 import '../ForgotPW/otp.dart' as _i3;
-import '../Navigation Bar/cart.dart' as _i16;
 import '../Home/dashboard.dart' as _i11;
 import '../Home/home.dart' as _i13;
-import '../Navigation Bar/profilepage.dart' as _i17;
-import '../Navigation Bar/wishlist.dart' as _i15;
 import '../LoginPage/login_page.dart' as _i12;
-import '../Navigation Bar/notification.dart' as _i14;
+import '../Navigation%20Bar/cart.dart' as _i16;
+import '../Navigation%20Bar/notification.dart' as _i14;
+import '../Navigation%20Bar/profilepage.dart' as _i17;
+import '../Navigation%20Bar/wishlist.dart' as _i15;
 import '../Recommendation/all.dart' as _i4;
-import '../Recommendation/architecture.dart' as _i8;
-import '../Recommendation/building_material.dart' as _i7;
-import '../Recommendation/Engineer.dart' as _i6;
-import '../Recommendation/Machinery/machinery.dart' as _i5;
+import '../Recommendation/architecture.dart' as _i7;
+import '../Recommendation/building_material.dart' as _i6;
+import '../Recommendation/Engineer.dart' as _i5;
+import '../Recommendation/Machinery/machineryhire.dart' as _i9;
 import '../Signin/sign_in.dart' as _i1;
 
 class AppRouter extends _i18.RootStackRouter {
@@ -62,34 +62,34 @@ class AppRouter extends _i18.RootStackRouter {
         child: const _i4.AllPage(),
       );
     },
-    MachineryRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i5.MachineryPage(),
-      );
-    },
     EngineerRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.EngineerPage(),
+        child: const _i5.EngineerPage(),
       );
     },
     BuildingMaterialRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.BuildingMaterialPage(),
+        child: const _i6.BuildingMaterialPage(),
       );
     },
     ArchitectureRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.ArchitecturePage(),
+        child: const _i7.ArchitecturePage(),
       );
     },
     AuthRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.AuthPage(),
+        child: const _i8.AuthPage(),
+      );
+    },
+    MachineryHireRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i9.MachineryHirePage(),
       );
     },
     AuthflowRoute.name: (routeData) {
@@ -161,10 +161,6 @@ class AppRouter extends _i18.RootStackRouter {
           path: '/all-page',
         ),
         _i18.RouteConfig(
-          MachineryRoute.name,
-          path: '/machinery-page',
-        ),
-        _i18.RouteConfig(
           EngineerRoute.name,
           path: '/engineer-page',
         ),
@@ -179,6 +175,10 @@ class AppRouter extends _i18.RootStackRouter {
         _i18.RouteConfig(
           AuthRoute.name,
           path: '/auth-page',
+        ),
+        _i18.RouteConfig(
+          MachineryHireRoute.name,
+          path: '/machinery-hire-page',
         ),
         _i18.RouteConfig(
           AuthflowRoute.name,
@@ -275,19 +275,7 @@ class AllRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.MachineryPage]
-class MachineryRoute extends _i18.PageRouteInfo<void> {
-  const MachineryRoute()
-      : super(
-          MachineryRoute.name,
-          path: '/machinery-page',
-        );
-
-  static const String name = 'MachineryRoute';
-}
-
-/// generated route for
-/// [_i6.EngineerPage]
+/// [_i5.EngineerPage]
 class EngineerRoute extends _i18.PageRouteInfo<void> {
   const EngineerRoute()
       : super(
@@ -299,7 +287,7 @@ class EngineerRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.BuildingMaterialPage]
+/// [_i6.BuildingMaterialPage]
 class BuildingMaterialRoute extends _i18.PageRouteInfo<void> {
   const BuildingMaterialRoute()
       : super(
@@ -311,7 +299,7 @@ class BuildingMaterialRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.ArchitecturePage]
+/// [_i7.ArchitecturePage]
 class ArchitectureRoute extends _i18.PageRouteInfo<void> {
   const ArchitectureRoute()
       : super(
@@ -323,7 +311,7 @@ class ArchitectureRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.AuthPage]
+/// [_i8.AuthPage]
 class AuthRoute extends _i18.PageRouteInfo<void> {
   const AuthRoute()
       : super(
@@ -332,6 +320,18 @@ class AuthRoute extends _i18.PageRouteInfo<void> {
         );
 
   static const String name = 'AuthRoute';
+}
+
+/// generated route for
+/// [_i9.MachineryHirePage]
+class MachineryHireRoute extends _i18.PageRouteInfo<void> {
+  const MachineryHireRoute()
+      : super(
+          MachineryHireRoute.name,
+          path: '/machinery-hire-page',
+        );
+
+  static const String name = 'MachineryHireRoute';
 }
 
 /// generated route for
