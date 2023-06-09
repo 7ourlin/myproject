@@ -89,7 +89,7 @@ class AppRouter extends _i18.RootStackRouter {
     MachineryHireRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.MachineryHirePage(),
+        child: _i9.MachineryHirePage(),
       );
     },
     AuthflowRoute.name: (routeData) {

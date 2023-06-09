@@ -60,74 +60,74 @@ class _DashboardPageState extends State<DashboardPage> {
         // },
         //drawer
 
-        drawer: Padding(
-          padding: const EdgeInsets.only(bottom: 100),
-          child: Drawer(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(00),
-                bottomRight: Radius.circular(70),
-                bottomLeft: Radius.circular(00),
-              ),
-            ),
-            child: ListView(
-              children: [
-                DrawerHeader(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.yellow[700],
-                        backgroundImage:
-                            AssetImage("assets/images/Constructour.png"),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text("logged in as: ${user!.email!}"),
-                    ],
-                  ),
-                ),
-                // IconButton(
-                //   onPressed: () {
-                //     signOut();
-                //   },
-                //   icon: const Icon(Icons.logout),
-                // ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        "Feedbacks",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "About",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // drawer: Padding(
+        //   padding: const EdgeInsets.only(bottom: 100),
+        //   child: Drawer(
+        //     shape: const RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.only(
+        //         topRight: Radius.circular(00),
+        //         bottomRight: Radius.circular(70),
+        //         bottomLeft: Radius.circular(00),
+        //       ),
+        //     ),
+        //     child: ListView(
+        //       children: [
+        //         DrawerHeader(
+        //           child: Column(
+        //             children: [
+        //               SizedBox(
+        //                 height: 10,
+        //               ),
+        //               CircleAvatar(
+        //                 radius: 50,
+        //                 backgroundColor: Colors.yellow[700],
+        //                 backgroundImage:
+        //                     AssetImage("assets/images/Constructour.png"),
+        //               ),
+        //               SizedBox(
+        //                 height: 10,
+        //               ),
+        //               Text("logged in as: ${user!.email!}"),
+        //             ],
+        //           ),
+        //         ),
+        //         // IconButton(
+        //         //   onPressed: () {
+        //         //     signOut();
+        //         //   },
+        //         //   icon: const Icon(Icons.logout),
+        //         // ),
+        //         SizedBox(
+        //           height: 10,
+        //         ),
+        //         Padding(
+        //           padding: const EdgeInsets.only(left: 50),
+        //           child: Column(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //               SizedBox(
+        //                 height: 30,
+        //               ),
+        //               Text(
+        //                 "Feedbacks",
+        //                 style: TextStyle(
+        //                     fontSize: 20, fontWeight: FontWeight.bold),
+        //               ),
+        //               SizedBox(
+        //                 height: 10,
+        //               ),
+        //               Text(
+        //                 "About",
+        //                 style: TextStyle(
+        //                     fontSize: 20, fontWeight: FontWeight.bold),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
 
 //routes
 

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,17 +25,24 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int tabindex = 0;
+  final user = FirebaseAuth.instance.currentUser;
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.yellow[700]),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
-        ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.yellow[700],
+            statusBarIconBrightness: Brightness.light),
+        // leading: IconButton(
+        //   icon: Icon(Icons.menu),
+        //   onPressed: () {},
+        // ),
+
         title: Text(
           'C o n s t r u c T o u r',
           style: GoogleFonts.abel(
@@ -58,6 +66,74 @@ class _HomePageState extends State<HomePage> {
       ),
 
 //Drawer in Dashboard
+      drawer: Padding(
+        padding: const EdgeInsets.only(bottom: 100),
+        child: Drawer(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(00),
+              bottomRight: Radius.circular(70),
+              bottomLeft: Radius.circular(00),
+            ),
+          ),
+          child: ListView(
+            children: [
+              DrawerHeader(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.yellow[700],
+                      backgroundImage:
+                          AssetImage("assets/images/Constructour.png"),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("logged in as: ${user!.email!}"),
+                  ],
+                ),
+              ),
+              // IconButton(
+              //   onPressed: () {
+              //     signOut();
+              //   },
+              //   icon: const Icon(Icons.logout),
+              // ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 50),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Feedbacks",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "About",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: SingleChildScrollView(
@@ -217,7 +293,9 @@ class _HomePageState extends State<HomePage> {
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
+                            onPressed: () {
+                              context.router.push(MachineryHireRoute());
+                            },
                             child: Row(
                               children: [
                                 Image.asset(
