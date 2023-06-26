@@ -3,22 +3,21 @@
 // @CustomAutoRouter
 import 'package:auto_route/annotations.dart';
 import 'package:myproject/ForgotPW/otp.dart';
-import 'package:myproject/Navigation%20Bar/cart.dart';
 import 'package:myproject/Home/dashboard.dart';
 import 'package:myproject/Home/home.dart';
+import 'package:myproject/Navigation%20Bar/cart.dart';
 import 'package:myproject/Navigation%20Bar/profilepage.dart';
 import 'package:myproject/Navigation%20Bar/wishlist.dart';
 import 'package:myproject/Recommendation/Engineer.dart';
-import 'package:myproject/Recommendation/all.dart';
 import 'package:myproject/Recommendation/building_material.dart';
-import '../Core/auth_flow_page.dart';
-import '../Firebase_Authentication/firebase_authentication.dart';
-import '../ForgotPW/forgotpw.dart';
-import '../Navigation Bar/notification.dart';
 
+import '../Core/auth_flow_page.dart';
+import '../ForgotPW/forgotpw.dart';
+import '../Home/about.dart';
+import '../LoginPage/login_page.dart';
+import '../Navigation Bar/notification.dart';
 import '../Recommendation/Machinery/machineryhire.dart';
 import '../Recommendation/architecture.dart';
-import '../LoginPage/login_page.dart';
 import '../Signin/sign_in.dart';
 
 @MaterialAutoRouter(
@@ -29,11 +28,10 @@ import '../Signin/sign_in.dart';
     ),
     AutoRoute(page: ForgotPasswordPage),
     AutoRoute(page: OtpPage),
-    AutoRoute(page: AllPage),
+    AutoRoute(page: AboutPage),
     AutoRoute(page: EngineerPage),
     AutoRoute(page: BuildingMaterialPage),
     AutoRoute(page: ArchitecturePage),
-    AutoRoute(page: AuthPage),
     AutoRoute(page: MachineryHirePage),
     AutoRoute(
       page: AuthflowPage,

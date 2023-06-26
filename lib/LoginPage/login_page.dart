@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../Router/router.gr.dart';
@@ -39,13 +37,14 @@ class _LoginPageState extends State<LoginPage> {
           );
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.code);
+      // EasyLoading.showError("Check internet connection!");
     }
   }
 
 //dispose textfield
   @override
   void dispose() {
-    // TODO: implement dispose
+    //TODO: implement dispose
     usernameController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -82,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                   //   ],
                   // ),
                   const SizedBox(
-                    height: 5,
+                    height: 2,
                   ),
                   //logo
                   Image.asset(
@@ -91,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: 150,
                   ),
                   Text(
-                    "LOGIN",
+                    "WELCOME BACK!",
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 30,
@@ -104,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   //welcome back
                   Text(
-                    "Welcome Back",
+                    "THERE YOU ARE ;)",
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,
@@ -185,8 +184,9 @@ class _LoginPageState extends State<LoginPage> {
                                     .push(const ForgotPasswordRoute());
                               },
                               child: const Text(
-                                "Forgot Password",
-                                style: TextStyle(fontSize: 16.0),
+                                "Oink! Forgot Password?",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.red),
                               ),
                               // 'Forgot Password?',
                               // style: TextStyle(color: Colors.grey[600]),
@@ -197,10 +197,10 @@ class _LoginPageState extends State<LoginPage> {
                           height: 5,
                         ),
 
-                        // sign in button
+                        // log in button
                         SizedBox(
                           height: 55,
-                          width: double.infinity,
+                          width: 200,
                           child: ElevatedButton(
                             style: const ButtonStyle(
                               backgroundColor:
@@ -215,7 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             },
                             child: const Text(
-                              'Login',
+                              'LOGIN',
+                              style: TextStyle(fontSize: 19),
                             ),
                           ),
                         )
@@ -281,8 +282,11 @@ class _LoginPageState extends State<LoginPage> {
                             width: 30,
                           ),
                           const Text(
-                            "  Sign in with Google",
-                            style: TextStyle(fontSize: 16.0),
+                            " oogle",
+                            style: TextStyle(
+                                fontSize: 19.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.brown),
                           ),
                         ],
                       ),
@@ -297,13 +301,16 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       context.router.push(const SigninRoute());
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text('Not a member?', style: TextStyle(fontSize: 16.0)),
+                      children: [
+                        Text(
+                          'Not a member?',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
                         SizedBox(width: 4),
                         Text(
-                          'Register now',
+                          'REGISTER NOW',
                           style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,

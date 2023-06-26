@@ -24,6 +24,7 @@ class MySearchDelegate extends SearchDelegate {
       },
       icon: const Icon(Icons.arrow_back),
     );
+    return null;
   }
 
   @override
@@ -47,7 +48,10 @@ class MySearchDelegate extends SearchDelegate {
     return Center(
         child: Text(
       query,
-      style: TextStyle(fontSize: 64, fontWeight: FontWeight.bold),
+      style: const TextStyle(
+        fontSize: 64,
+        fontWeight: FontWeight.bold,
+      ),
     ));
   }
 

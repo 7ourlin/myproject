@@ -42,14 +42,17 @@ dependencies:
   equatable: ^2.0.5
   google_fonts: ^4.0.3
   custom_navigation_bar: ^0.8.2
-  firebase_core: ^2.10.0
+  firebase_core: ^2.13.1
   firebase_auth: ^4.4.2
-  easy_loading: ^0.0.4
+  
   google_nav_bar: ^5.0.6
   flutter_native_splash: ^2.2.19
   pinput: ^2.2.31
   carousel_slider: ^4.2.1
   smooth_page_indicator: ^1.0.0+2
+  firebase_storage: ^11.2.2
+  
+  cloud_firestore: ^4.8.0
 
 dev_dependencies:
   flutter_test:

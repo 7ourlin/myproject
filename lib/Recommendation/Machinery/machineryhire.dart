@@ -3,6 +3,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // ignore_for_file: public_member_api_docs
 class MachineryHirePage extends StatefulWidget {
+  const MachineryHirePage({super.key});
+
   @override
   _MachineryHirePageState createState() => _MachineryHirePageState();
 }
@@ -16,68 +18,112 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
       'assets/images/Machinery3.jpg',
       'assets/images/Machinery2.jpg',
     ];
-    // final pages = List.generate(
-    //   3,
-    //   (index) => Container(
-    //     decoration: BoxDecoration(
-    //       borderRadius: BorderRadius.circular(16),
-    //       color: Colors.grey.shade300,
-    //     ),
-    //     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    //     child: Container(
-    //       height: 280,
-    //       child: Center(
-    //           child: Text(
-    //         "Page $index",
-    //         style: TextStyle(color: Colors.indigo),
-    //       )),
-    //     ),
-    //   ),
-    // );
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.yellow[700],
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 16),
-              SizedBox(
-                height: 240,
-                child: PageView.builder(
-                  controller: controller,
-                  // itemCount: pages.length,
-                  itemCount: photos.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 200,
-                        color: Colors.amber,
-                        child: Image.asset(photos[index], fit: BoxFit.fill),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SmoothPageIndicator(
+        // child: Column(children: [
+        //   StreamBuilder(
+        //     stream:
+        //         FirebaseFirestore.instance.collection('machinery').snapshots(),
+        //     builder: (BuildContext,
+        //         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        //       if (snapshot.hasData) {
+        //         List<Map<String, dynamic>> doc = snapshot.data!.map((e) {
+        //           log(e.toString());
+        //           return e.data();
+        //         }).toList();
+        //         return
+        //       }
+        //     },
+        //   )
+        // ]),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 200,
+              child: PageView.builder(
                 controller: controller,
-                count: photos.length,
-                effect: const WormEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
-                  type: WormType.thinUnderground,
+                itemCount: photos.length,
+                itemBuilder: (_, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 200,
+                      color: Colors.amber,
+                      child: Image.asset(photos[index], fit: BoxFit.fill),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SmoothPageIndicator(
+              controller: controller,
+              count: photos.length,
+              effect: const WormEffect(
+                dotHeight: 10,
+                dotWidth: 10,
+                type: WormType.thinUnderground,
+              ),
+            ),
+            const Divider(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                height: 150,
+                width: double.infinity,
+                color: Colors.grey[200],
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('   Description:'),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24, bottom: 12),
-                child: Text(
-                  'Worm',
-                  style: TextStyle(color: Colors.black54),
-                ),
+            ),
+            const SizedBox(
+              height: 20,
+              child: Text(
+                "₹ 500/hr",
+                style: TextStyle(fontSize: 18),
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 9, left: 50.0, right: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.amberAccent,
+                      ),
+                      height: 40,
+                      width: 100,
+                      child: const Center(child: Text("Add to wishlist")),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.amberAccent,
+                      ),
+                      height: 40,
+                      width: 100,
+                      child: const Center(child: Text("Add to cart")),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

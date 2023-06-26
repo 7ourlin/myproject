@@ -1,11 +1,12 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myproject/Home/carousel.dart';
-import 'package:myproject/Home/search.dart';
-import 'package:myproject/Router/router.gr.dart';
+
+import '../Router/router.gr.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,116 +26,17 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int tabindex = 0;
-  final user = FirebaseAuth.instance.currentUser;
 
-  void signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
+  //
+  final machineryStream =
+      FirebaseFirestore.instance.collection('machinery').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.yellow[700],
-            statusBarIconBrightness: Brightness.light),
-        // leading: IconButton(
-        //   icon: Icon(Icons.menu),
-        //   onPressed: () {},
-        // ),
+// Drawer in Dashboard
 
-        title: Text(
-          'C o n s t r u c T o u r',
-          style: GoogleFonts.abel(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: Colors.yellow[700],
-        actions: [
-          IconButton(
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: MySearchDelegate(),
-              );
-            },
-            icon: const Icon(Icons.search),
-          )
-        ],
-      ),
-
-//Drawer in Dashboard
-      drawer: Padding(
-        padding: const EdgeInsets.only(bottom: 100),
-        child: Drawer(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(00),
-              bottomRight: Radius.circular(70),
-              bottomLeft: Radius.circular(00),
-            ),
-          ),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.yellow[700],
-                      backgroundImage:
-                          AssetImage("assets/images/Constructour.png"),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text("logged in as: ${user!.email!}"),
-                  ],
-                ),
-              ),
-              // IconButton(
-              //   onPressed: () {
-              //     signOut();
-              //   },
-              //   icon: const Icon(Icons.logout),
-              // ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      "Feedbacks",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "About",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -166,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   SizedBox(
@@ -191,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                               elevation: MaterialStateProperty.all(0),
                               backgroundColor: MaterialStatePropertyAll(
                                   tabindex == index
-                                      ? Colors.amber
+                                      ? Colors.grey
                                       : Colors.white), //ternaryOperator
                             ),
                             onPressed: () {
@@ -222,10 +124,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           // //////////////////////////////////////////////
                           child: Container(
-                            child: Carousel(),
+                            child: const Carousel(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 2,
                         ),
                         Padding(
@@ -264,239 +166,205 @@ class _HomePageState extends State<HomePage> {
                           height: 130,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(10)),
                           child: Card(
-                              child: Image.asset(
-                                  "assets/images/Constructour.png")),
+                            child: Image.asset("assets/images/Machinery.jpg",
+                                fit: BoxFit.fill),
+                          ),
                         ),
-                        Row(
+                        const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
                               height: 40,
                               child: Center(
-                                  child: Text(
-                                "     Browse all",
-                                style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              )),
+                                child: Text(
+                                  "     Browse all",
+                                  style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {
-                              context.router.push(MachineryHireRoute());
-                            },
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Machinery1.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                        const SizedBox(
+                          height: 5,
                         ),
-                        SizedBox(height: 20),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {
-                              // context.router.push(),
-                            },
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Machinery2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
+                        StreamBuilder(
+                          stream: machineryStream,
+                          builder: (BuildContext,
+                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                  snapshot) {
+                            if (snapshot.hasData) {
+                              List<Map<String, dynamic>> doc =
+                                  snapshot.data!.docs.map((e) {
+                                log(e.toString());
+                                return e.data();
+                              }).toList();
+                              //return Text(snapshot.data.toString());
+                              return ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: doc.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    splashColor: Colors.amber,
+                                    onTap: () {
+                                      context.router
+                                          .push(const MachineryHireRoute());
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Material(
+                                              color:
+                                                  Colors.white.withOpacity(0.5),
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                height: 140,
+                                                child: Row(
+                                                  children: [
+                                                    Image.network(
+                                                      doc[index]["image_url"],
+                                                      height: 100,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Container(
+                                                      height: 110,
+                                                      width: 1,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.black,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20)),
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 30.0,
+                                                                  left: 5),
+                                                          child: Text(
+                                                            doc[index]["name"],
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 8.0),
+                                                          child: Text(
+                                                            "By: Builders Co.",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 25.0),
+                                                          child: Text(
+                                                              "₹  ${doc[index]["price"]}",
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .black)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                                  );
+                                },
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          },
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Machinery3.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Excavator 2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+
+                        // const SizedBox(
+                        //   height: 150,
+                        //   width: 350,
+                        // child: ElevatedButton(
+                        //   style: const ButtonStyle(
+                        //       backgroundColor:
+                        //           MaterialStatePropertyAll(Colors.white)),
+                        //   onPressed: () {
+                        //     context.router.push(const MachineryHireRoute());
+                        //   },
+                        //   child: Row(
+                        //     children: [
+                        //       Image.asset(
+                        //         "assets/images/Machinery1.jpg",
+                        //         height: 100,
+                        //       ),
+                        //       const SizedBox(
+                        //         width: 10,
+                        //       ),
+                        //       Container(
+                        //         height: 110,
+                        //         width: 1,
+                        //         decoration: BoxDecoration(
+                        //             color: Colors.grey,
+                        //             borderRadius: BorderRadius.circular(20)),
+                        //       ),
+                        //       const Column(
+                        //         children: [
+                        //           Padding(
+                        //             padding:
+                        //                 EdgeInsets.only(top: 30.0, left: 5),
+                        //             child: Text(
+                        //               "Excavator",
+                        //               style: TextStyle(color: Colors.black),
+                        //             ),
+                        //           ),
+                        //           SizedBox(
+                        //             height: 20,
+                        //           ),
+                        //           Padding(
+                        //             padding: EdgeInsets.only(left: 8.0),
+                        //             child: Text(
+                        //               "By: Builders Co.",
+                        //               style: TextStyle(color: Colors.black),
+                        //             ),
+                        //           ),
+                        //           Padding(
+                        //             padding: EdgeInsets.only(top: 25.0),
+                        //             child: Text("₹ 123",
+                        //                 style:
+                        //                     TextStyle(color: Colors.black)),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // ),
                       ],
                     ),
 
@@ -514,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                               child: Image.asset(
                                   "assets/images/Constructour.png")),
                         ),
-                        Row(
+                        const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
@@ -534,7 +402,7 @@ class _HomePageState extends State<HomePage> {
                           height: 150,
                           width: 350,
                           child: ElevatedButton(
-                            style: ButtonStyle(
+                            style: const ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll(Colors.white)),
                             onPressed: () {},
@@ -544,7 +412,7 @@ class _HomePageState extends State<HomePage> {
                                   "assets/images/Engineer1.jpg",
                                   height: 100,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
@@ -554,11 +422,11 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(20)),
                                 ),
-                                Column(
+                                const Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
+                                      padding:
+                                          EdgeInsets.only(top: 30.0, left: 5),
                                       child: Text(
                                         "Engineer 1",
                                         style: TextStyle(color: Colors.black),
@@ -568,7 +436,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 20,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
+                                      padding: EdgeInsets.only(left: 8.0),
                                       child: Text(
                                         "By: Builders Co.",
                                         style: TextStyle(color: Colors.black),
@@ -580,163 +448,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Engineer2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Engineer 2",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Engineer3.jpeg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Engineer 3",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Excavator 2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 20),
                       ],
                     ),
 
@@ -750,11 +462,13 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                               color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(10)),
-                          child: Card(
-                              child: Image.asset(
-                                  "assets/images/Constructour.png")),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child:
+                                Image.asset("assets/images/Constructour.png"),
+                          ),
                         ),
-                        Row(
+                        const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
@@ -774,7 +488,7 @@ class _HomePageState extends State<HomePage> {
                           height: 150,
                           width: 350,
                           child: ElevatedButton(
-                            style: ButtonStyle(
+                            style: const ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll(Colors.white)),
                             onPressed: () {},
@@ -784,7 +498,7 @@ class _HomePageState extends State<HomePage> {
                                   "assets/images/Architect1.jpg",
                                   height: 100,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
@@ -794,11 +508,11 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(20)),
                                 ),
-                                Column(
+                                const Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
+                                      padding:
+                                          EdgeInsets.only(top: 30.0, left: 5),
                                       child: Text(
                                         "Architect 1",
                                         style: TextStyle(color: Colors.black),
@@ -808,7 +522,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 20,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
+                                      padding: EdgeInsets.only(left: 8.0),
                                       child: Text(
                                         "By: Builders Co.",
                                         style: TextStyle(color: Colors.black),
@@ -820,163 +534,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Architect2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Architect 2",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Architect3.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Architect 3",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Excavator 2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   //(((((   Material   )))))
@@ -994,7 +552,7 @@ class _HomePageState extends State<HomePage> {
                               child: Image.asset(
                                   "assets/images/Constructour.png")),
                         ),
-                        Row(
+                        const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
@@ -1014,7 +572,7 @@ class _HomePageState extends State<HomePage> {
                           height: 150,
                           width: 350,
                           child: ElevatedButton(
-                            style: ButtonStyle(
+                            style: const ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll(Colors.white)),
                             onPressed: () {},
@@ -1024,7 +582,7 @@ class _HomePageState extends State<HomePage> {
                                   "assets/images/Excavator 2.jpg",
                                   height: 100,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
@@ -1034,11 +592,11 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(20)),
                                 ),
-                                Column(
+                                const Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
+                                      padding:
+                                          EdgeInsets.only(top: 30.0, left: 5),
                                       child: Text(
                                         "Excavator",
                                         style: TextStyle(color: Colors.black),
@@ -1048,7 +606,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 20,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
+                                      padding: EdgeInsets.only(left: 8.0),
                                       child: Text(
                                         "By: Builders Co.",
                                         style: TextStyle(color: Colors.black),
@@ -1060,163 +618,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Excavator 2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Excavator 2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Excavator 2.jpg",
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30.0, left: 5),
-                                      child: Text(
-                                        "Excavator",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                 ],

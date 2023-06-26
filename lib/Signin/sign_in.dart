@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -28,12 +31,42 @@ class _SigninPageState extends State<SigninPage> {
 
   final _formKey = GlobalKey<FormState>();
 
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+//  final CollectionReference<Map<String, dynamic>> collectionReference =
+//     FirebaseFirestore.instance.collection('user');
+
   bool passwordConfirmed() {
     if (passwordController.text.trim() ==
         confirmpasswordController.text.trim()) {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void addUser() async {
+    var data = {
+      "name": profileNameController.text,
+      "contact": "empty",
+      "email": emailController.text,
+      "address": "empty",
+    };
+    try {
+      log(data.toString());
+      await firestore
+          .collection('users')
+          .doc(emailController.text)
+          .set(data)
+          .whenComplete(() {
+        EasyLoading.showSuccess("Account Created");
+        Navigator.pop(context);
+        EasyLoading.dismiss();
+      });
+    } catch (e) {
+      EasyLoading.showError("error");
     }
   }
 
@@ -46,9 +79,9 @@ class _SigninPageState extends State<SigninPage> {
             .createUserWithEmailAndPassword(
                 email: emailController.text.trim(),
                 password: passwordController.text.trim())
-            .whenComplete(
-              () => EasyLoading.showSuccess('Account Created'),
-            );
+            .whenComplete(() {
+          addUser();
+        });
       } on FirebaseAuthException catch (e) {
         EasyLoading.showError(e.code);
       }
@@ -232,7 +265,10 @@ class _SigninPageState extends State<SigninPage> {
                                     'Please fill in the form');
                               }
                             },
-                            child: const Text('CREATE ACCOUNT'),
+                            child: const Text(
+                              'CREATE ACCOUNT',
+                              style: TextStyle(fontSize: 19),
+                            ),
                           ),
                         )
                       ],
@@ -297,7 +333,7 @@ class _SigninPageState extends State<SigninPage> {
                             width: 30,
                           ),
                           const Text(
-                            "  Sign in with Google",
+                            "  Google Account",
                             style: TextStyle(fontSize: 16.0),
                           ),
                         ],
@@ -314,16 +350,16 @@ class _SigninPageState extends State<SigninPage> {
                         const AuthflowRoute(),
                       );
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           'Already have an account?',
                           style: TextStyle(fontSize: 16.0),
                         ),
                         SizedBox(width: 4),
                         Text(
-                          'Login',
+                          'LOGIN',
                           style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
