@@ -2,6 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 final List<String> imgList = [
+  'assets/images/Carousel_1.png',
+  'assets/images/Carousel_2.png',
+  'assets/images/Carousel_3.png',
+  'assets/images/Carousel_4.png',
+  'assets/images/Carousel_5.png',
+
   // 'https://firebasestorage.googleapis.com/v0/b/constructour-92fa3.appspot.com/o/Tractor1.jpeg?alt=media&token=9036d750-20cc-47bd-b041-53c75ed61866&_gl=1*1tdd839*_ga*NzE4ODYyNzUuMTY4MjY3NTA3Nw..*_ga_CW55HF8NVT*MTY4NjU2MzQ2My4xMC4xLjE2ODY1NjM0ODMuMC4wLjA.'
   //     // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
   //     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -30,7 +36,7 @@ class _CarouselState extends State<Carousel> {
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
                 children: <Widget>[
-                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                  Image.asset(item, fit: BoxFit.cover, width: 1000.0),
                   Positioned(
                     bottom: 0.0,
                     left: 0.0,

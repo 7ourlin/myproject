@@ -3,7 +3,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // ignore_for_file: public_member_api_docs
 class MachineryHirePage extends StatefulWidget {
-  const MachineryHirePage({super.key});
+  const MachineryHirePage({super.key, required this.data});
+
+  final Map<String, dynamic> data;
 
   @override
   _MachineryHirePageState createState() => _MachineryHirePageState();
@@ -14,10 +16,10 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> photos = [
-      'assets/images/Machinery3.jpg',
-      'assets/images/Machinery2.jpg',
-    ];
+    // List<String> photos = [
+    //   'assets/images/Machinery3.jpg',
+    //   'assets/images/Machinery2.jpg',
+    // ];
 
     return Scaffold(
       appBar: AppBar(
@@ -49,14 +51,15 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
               height: 200,
               child: PageView.builder(
                 controller: controller,
-                itemCount: photos.length,
+                itemCount: widget.data['image_url'].length,
                 itemBuilder: (_, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 200,
                       color: Colors.amber,
-                      child: Image.asset(photos[index], fit: BoxFit.fill),
+                      child: Image.network(widget.data['image_url'][index],
+                          fit: BoxFit.fill),
                     ),
                   );
                 },
@@ -64,7 +67,7 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
             ),
             SmoothPageIndicator(
               controller: controller,
-              count: photos.length,
+              count: widget.data['image_url'].length,
               effect: const WormEffect(
                 dotHeight: 10,
                 dotWidth: 10,
@@ -78,17 +81,19 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
                 height: 150,
                 width: double.infinity,
                 color: Colors.grey[200],
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('   Description:'),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '   Description: ${widget.data["description"]}',
+                  ),
                 ),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
               child: Text(
-                "₹ 500/hr",
-                style: TextStyle(fontSize: 18),
+                "₹ ${widget.data["price"]}",
+                style: const TextStyle(fontSize: 18),
               ),
             ),
             Padding(

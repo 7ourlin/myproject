@@ -139,7 +139,8 @@ class _DashboardPageState extends State<DashboardPage> {
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onPrimaryContainer,
+                                            .onPrimaryContainer
+                                            .withOpacity(0.95),
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     child: Column(
@@ -153,7 +154,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                               Text(
                                                 "Are you sure to logout?",
                                                 style: GoogleFonts.abel(
-                                                    fontSize: 25),
+                                                    fontSize: 25,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               const SizedBox(
                                                 height: 5,

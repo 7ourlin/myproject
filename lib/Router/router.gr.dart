@@ -80,9 +80,13 @@ class AppRouter extends _i17.RootStackRouter {
       );
     },
     MachineryHireRoute.name: (routeData) {
+      final args = routeData.argsAs<MachineryHireRouteArgs>();
       return _i17.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.MachineryHirePage(),
+        child: _i8.MachineryHirePage(
+          key: args.key,
+          data: args.data,
+        ),
       );
     },
     AuthflowRoute.name: (routeData) {
@@ -301,14 +305,36 @@ class ArchitectureRoute extends _i17.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.MachineryHirePage]
-class MachineryHireRoute extends _i17.PageRouteInfo<void> {
-  const MachineryHireRoute()
-      : super(
+class MachineryHireRoute extends _i17.PageRouteInfo<MachineryHireRouteArgs> {
+  MachineryHireRoute({
+    _i18.Key? key,
+    required Map<String, dynamic> data,
+  }) : super(
           MachineryHireRoute.name,
           path: '/machinery-hire-page',
+          args: MachineryHireRouteArgs(
+            key: key,
+            data: data,
+          ),
         );
 
   static const String name = 'MachineryHireRoute';
+}
+
+class MachineryHireRouteArgs {
+  const MachineryHireRouteArgs({
+    this.key,
+    required this.data,
+  });
+
+  final _i18.Key? key;
+
+  final Map<String, dynamic> data;
+
+  @override
+  String toString() {
+    return 'MachineryHireRouteArgs{key: $key, data: $data}';
+  }
 }
 
 /// generated route for

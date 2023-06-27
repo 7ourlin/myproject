@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -50,35 +49,114 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            Center(
+                child: InkWell(
+              onTap: () {},
+              child: Container(
+                child: const Text(
+                  "Edit your profile✏️",
+                  style: TextStyle(fontFamily: 'roboto', fontSize: 20),
+                ),
+              ),
+            )),
             const Padding(
               padding: EdgeInsets.only(left: 30, right: 30),
               child: Divider(),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 7, right: 1),
               child: Column(
                 children: [
-                  Text(
-                    "User Name: ",
-                    style: GoogleFonts.abel(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                  const Card(
+                    child: ListTile(
+                      style: ListTileStyle.drawer,
+                      leading: Icon(Icons.account_circle),
+                      title: Text(
+                        "User Name: ",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      subtitle: Text(
+                        "Bill Gates",
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+
+                  const Card(
+                    child: ListTile(
+                      style: ListTileStyle.drawer,
+                      leading: Icon(Icons.phone_in_talk_sharp),
+                      title: Text(
+                        "Contact:",
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        "2563718673",
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                      ),
+                    ),
+                  ),
+                  const Card(
+                    child: ListTile(
+                      style: ListTileStyle.drawer,
+                      leading: Icon(Icons.mail),
+                      title: Text(
+                        "E-mail:",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        "mail@gmail.com",
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                      ),
+                    ),
+                  ),
+                  const Card(
+                    child: ListTile(
+                      style: ListTileStyle.drawer,
+                      leading: Icon(Icons.home_work),
+                      title: Text(
+                        "Address:",
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        "Wangkhei Ayangpalli near Leima Keithel",
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    height: 30,
-                    width: 90,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(
-                      child: Text(
-                        "ORDERS",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                  InkWell(
+                    // customBorder: BeveledRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(20)),
+                    onTap: () {},
+                    child: Container(
+                      height: 37,
+                      width: 137,
+                      decoration: BoxDecoration(
+                          color: Colors.cyanAccent[100],
+                          //border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Center(
+                        child: Text(
+                          "VIEW ORDER HISTORY",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

@@ -31,6 +31,9 @@ class _HomePageState extends State<HomePage> {
   final machineryStream =
       FirebaseFirestore.instance.collection('machinery').snapshots();
 
+  final engineerStream =
+      FirebaseFirestore.instance.collection('engineer').snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +65,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   'Our Recommendation',
-                  style: GoogleFonts.signikaNegative(
-                      color: Colors.black, fontSize: 20),
+                  style: GoogleFonts.signikaNegative(fontSize: 20),
                 ),
               ),
               Column(
@@ -167,9 +169,9 @@ class _HomePageState extends State<HomePage> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
-                          child: Card(
-                            child: Image.asset("assets/images/Machinery.jpg",
-                                fit: BoxFit.fill),
+                          child: Image.asset(
+                            "assets/images/Machinery.jpg",
+                            // fit: BoxFit.fill
                           ),
                         ),
                         const Row(
@@ -209,94 +211,98 @@ class _HomePageState extends State<HomePage> {
                                 itemCount: doc.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
-                                    splashColor: Colors.amber,
-                                    onTap: () {
-                                      context.router
-                                          .push(const MachineryHireRoute());
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Material(
-                                              color:
-                                                  Colors.white.withOpacity(0.5),
-                                              child: Container(
-                                                color: Colors.transparent,
-                                                height: 140,
-                                                child: Row(
-                                                  children: [
-                                                    Image.network(
-                                                      doc[index]["image_url"],
-                                                      height: 100,
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                      height: 110,
-                                                      width: 1,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.black,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20)),
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 30.0,
-                                                                  left: 5),
-                                                          child: Text(
-                                                            doc[index]["name"],
-                                                            style:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .black),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        const Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 8.0),
-                                                          child: Text(
-                                                            "By: Builders Co.",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 25.0),
-                                                          child: Text(
-                                                              "₹  ${doc[index]["price"]}",
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 3),
+                                    child: InkWell(
+                                      splashColor: Colors.amber,
+                                      onTap: () {
+                                        //use log to check data in terminal
+                                        // log(doc[index].runtimeType.toString());
+                                        context.router.push(MachineryHireRoute(
+                                            data: doc[index]));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Material(
+                                                color: Colors.white
+                                                    .withOpacity(0.5),
+                                                child: Container(
+                                                  color: Colors.transparent,
+                                                  height: 140,
+                                                  child: Row(
+                                                    children: [
+                                                      Image.network(
+                                                        doc[index]["image_url"]
+                                                            [0],
+                                                        height: 100,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Container(
+                                                        height: 110,
+                                                        width: 1,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.black,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20)),
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 30.0,
+                                                                    left: 5),
+                                                            child: Text(
+                                                              doc[index]
+                                                                  ["name"],
                                                               style: const TextStyle(
                                                                   color: Colors
-                                                                      .black)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 8.0),
+                                                            child: Text(
+                                                              "By: Builders Co.",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 25.0),
+                                                            child: Text(
+                                                                "₹  ${doc[index]["price"]}",
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .black)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            )
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
@@ -398,57 +404,172 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 150,
-                          width: 350,
-                          child: ElevatedButton(
-                            style: const ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/Engineer1.jpg",
-                                  height: 100,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  height: 110,
-                                  width: 1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
-                                const Column(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 30.0, left: 5),
-                                      child: Text(
-                                        "Engineer 1",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
+                        StreamBuilder(
+                          stream: engineerStream,
+                          builder: (BuildContext,
+                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                  snapshot) {
+                            if (snapshot.hasData) {
+                              List<Map<String, dynamic>> doc =
+                                  snapshot.data!.docs.map((e) {
+                                log(e.toString());
+                                return e.data();
+                              }).toList();
+                              //return Text(snapshot.data.toString());
+                              return ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: doc.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    splashColor: Colors.amber,
+                                    onTap: () {
+                                      // context.router
+                                      //     .push(const MachineryHireRoute());
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Material(
+                                              color:
+                                                  Colors.white.withOpacity(0.5),
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                height: 140,
+                                                child: Row(
+                                                  children: [
+                                                    Image.network(
+                                                      doc[index]["image_url"]
+                                                          [0],
+                                                      height: 100,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Container(
+                                                      height: 110,
+                                                      width: 1,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.black,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20)),
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 30.0,
+                                                                  left: 5),
+                                                          child: Text(
+                                                            doc[index]["name"],
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 8.0),
+                                                          child: Text(
+                                                            "By: Builders Co.",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 25.0),
+                                                          child: Text(
+                                                              "₹  ${doc[index]["price"]}",
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .black)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        "By: Builders Co.",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                                  );
+                                },
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          },
                         ),
-                        const SizedBox(height: 20),
+                        // SizedBox(
+                        //   height: 150,
+                        //   width: 350,
+                        //   child: ElevatedButton(
+                        //     style: const ButtonStyle(
+                        //         backgroundColor:
+                        //             MaterialStatePropertyAll(Colors.white)),
+                        //     onPressed: () {},
+                        //     child: Row(
+                        //       children: [
+                        //         Image.asset(
+                        //           "assets/images/Engineer1.jpg",
+                        //           height: 100,
+                        //         ),
+                        //         const SizedBox(
+                        //           width: 10,
+                        //         ),
+                        //         Container(
+                        //           height: 110,
+                        //           width: 1,
+                        //           decoration: BoxDecoration(
+                        //               color: Colors.grey,
+                        //               borderRadius: BorderRadius.circular(20)),
+                        //         ),
+                        //         const Column(
+                        //           children: [
+                        //             Padding(
+                        //               padding:
+                        //                   EdgeInsets.only(top: 30.0, left: 5),
+                        //               child: Text(
+                        //                 "Engineer 1",
+                        //                 style: TextStyle(color: Colors.black),
+                        //               ),
+                        //             ),
+                        //             SizedBox(
+                        //               height: 20,
+                        //             ),
+                        //             Padding(
+                        //               padding: EdgeInsets.only(left: 8.0),
+                        //               child: Text(
+                        //                 "By: Builders Co.",
+                        //                 style: TextStyle(color: Colors.black),
+                        //               ),
+                        //             )
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 20),
                       ],
                     ),
 

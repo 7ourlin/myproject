@@ -13,9 +13,13 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.brown),
+        elevation: 11,
         backgroundColor: Colors.yellow[700],
+        centerTitle: true,
         title: const Text(
           "A b o u t  ",
+          style: TextStyle(color: Colors.brown),
         ),
       ),
       body: Column(
@@ -55,7 +59,8 @@ class _AboutPageState extends State<AboutPage> {
                     const Padding(
                       padding: EdgeInsets.only(left: 11.0, top: 5, right: 11),
                       child: Text(
-                        " This app has been developed as a project for our flutter course completion with an aim to provide construction related services at the tip of your finger.",
+                        " This app has been developed as a project for our flutter course completion with a concept to provide construction related services at the tip of your finger.",
+                        textAlign: TextAlign.justify,
                         style: TextStyle(fontSize: 19),
                       ),
                     )
