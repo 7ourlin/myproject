@@ -16,7 +16,7 @@ class _CartPageState extends State<CartPage> {
   final storageRef = FirebaseStorage.instance.ref();
 
   final CollectionReference products =
-      FirebaseFirestore.instance.collection("engineer");
+      FirebaseFirestore.instance.collection("material");
 
   Future<void> createDocument() async {
     return await products
@@ -24,22 +24,16 @@ class _CartPageState extends State<CartPage> {
         .set(
           {
             "description": "4tgrsergt",
-            "name": "Building Engineer",
-            "price": "1500/hr",
-            "image_url":
-                "https://firebasestorage.googleapis.com/v0/b/constructour-92fa3.appspot.com/o/Engineer1.jpg?alt=media&token=482a4ae8-0b51-4f84-95f4-df5fb908d658",
+            "name": "50mm Iron Rod",
+            "price": "60,000/tonne",
+            "image_url": [
+              "https://firebasestorage.googleapis.com/v0/b/constructour-92fa3.appspot.com/o/Iron_rod.jpg?alt=media&token=300ba670-a137-41c5-b605-fa08bc624778",
+            ]
           },
         )
 
         //un_comment out from down
-        //   {
-        //     "description": "4tgrsergt",
-        //     "name": "Excavator",
-        //     "price": "1500/hr",
-        //     "image_url":
-        //         "https://firebasestorage.googleapis.com/v0/b/constructour-92fa3.appspot.com/o/Excavator1.jpg?alt=media&token=7a31cf85-34b9-40f8-87f6-abb09132ff09&_gl=1*1308ljr*_ga*NzE4ODYyNzUuMTY4MjY3NTA3Nw..*_ga_CW55HF8NVT*MTY4NjY0MjY2MC4xNC4xLjE2ODY2NDgxMDcuMC4wLjA.",
-        //   },
-        // )
+
         //up Upto there only
         //   {
         //     "description": "43tgerger",
@@ -65,19 +59,19 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 80),
               child: Icon(
                 Icons.remove_shopping_cart,
                 size: 150,
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 70),
               child: Text(
                 "Your cart is empty",
@@ -86,11 +80,11 @@ class _CartPageState extends State<CartPage> {
             ),
             //Use this button to update product
 
-            ElevatedButton(
-                onPressed: () async {
-                  await createDocument();
-                },
-                child: const Text("Press Here")),
+            // ElevatedButton(
+            //     onPressed: () async {
+            //       await createDocument();
+            //     },
+            //     child: const Text("Don't Press Here")),
           ],
         ),
       ),

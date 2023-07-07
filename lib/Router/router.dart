@@ -14,6 +14,7 @@ import 'package:myproject/Recommendation/building_material.dart';
 import '../Core/auth_flow_page.dart';
 import '../ForgotPW/forgotpw.dart';
 import '../Home/about.dart';
+import '../Home/testing.dart';
 import '../LoginPage/login_page.dart';
 import '../Navigation Bar/notification.dart';
 import '../Recommendation/Machinery/machineryhire.dart';
@@ -32,7 +33,8 @@ import '../Signin/sign_in.dart';
     AutoRoute(page: EngineerPage),
     AutoRoute(page: BuildingMaterialPage),
     AutoRoute(page: ArchitecturePage),
-    AutoRoute(page: MachineryHirePage),
+    AutoRoute(page: DetailPage),
+    AutoRoute(page: TestingPage),
     AutoRoute(
       page: AuthflowPage,
       path: '/',

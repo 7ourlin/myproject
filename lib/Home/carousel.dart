@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 final List<String> imgList = [
   'assets/images/Carousel_1.png',
   'assets/images/Carousel_2.png',
+  'assets/images/Carousel_6.png',
   'assets/images/Carousel_3.png',
   'assets/images/Carousel_4.png',
   'assets/images/Carousel_5.png',
@@ -74,6 +75,7 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(top: 7),
       child: Column(children: [
         SizedBox(
           child: CarouselSlider(
@@ -107,7 +109,7 @@ class _CarouselState extends State<Carousel> {
                     shape: BoxShape.circle,
                     color: (Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
-                            : Colors.blueAccent)
+                            : Colors.redAccent)
                         .withOpacity(_current == entry.key ? 0.9 : 0.4)),
               ),
             );

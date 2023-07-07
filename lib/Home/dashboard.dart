@@ -83,24 +83,35 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             child: ListView(
+              padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/BG_Image.jpg"),
+                          fit: BoxFit.cover),
+                      color: Colors.white,
+                      backgroundBlendMode: BlendMode.color),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       const SizedBox(
-                        height: 10,
+                        height: 7,
                       ),
                       CircleAvatar(
-                        radius: 50,
+                        radius: 47,
                         backgroundColor: Colors.yellow[700],
                         backgroundImage:
                             const AssetImage("assets/images/Constructour.png"),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      Text("Hello!    ${user!.email!}"),
+                      Text(
+                        "Hello!   \n ${user!.email!}",
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 15),
+                      ),
                     ],
                   ),
                 ),
@@ -111,19 +122,16 @@ class _DashboardPageState extends State<DashboardPage> {
                 //   icon: const Icon(Icons.logout),
                 // ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50),
+                  padding: const EdgeInsets.only(left: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
                       TextButton.icon(
                         label: const Text(
-                          "Log Out",
+                          "LogOut",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -169,7 +177,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                         Row(
                                           children: [
                                             const SizedBox(
-                                              width: 40,
+                                              width: 111,
                                             ),
                                             TextButton(
                                                 onPressed: () {
@@ -178,25 +186,25 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 child: const Text(
                                                   "Cancel",
                                                   style:
-                                                      TextStyle(fontSize: 21),
+                                                      TextStyle(fontSize: 19),
                                                 )),
                                             const SizedBox(
-                                              width: 90,
+                                              width: 33,
                                             ),
                                             TextButton(
                                                 onPressed: () {
-                                                  signOut().whenComplete(
-                                                    () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  );
+                                                  // signOut().whenComplete(
+                                                  //   () {
+                                                  //     Navigator.pop(context);
+                                                  //   },
+                                                  // );
                                                   // context.router.push(
                                                   //     const MachineryHireRoute());
                                                 },
                                                 child: const Text(
                                                   "Confirm",
                                                   style:
-                                                      TextStyle(fontSize: 21),
+                                                      TextStyle(fontSize: 19),
                                                 )),
                                           ],
                                         ),
@@ -210,20 +218,36 @@ class _DashboardPageState extends State<DashboardPage> {
                         },
                         icon: const Icon(Icons.logout_outlined),
                       ),
-                      const Divider(),
                       TextButton.icon(
                         onPressed: () {},
-                        icon: const Icon(Icons.send),
+                        icon: const Icon(Icons.settings),
                         label: const Text(
-                          "Feedbacks",
+                          "Settings",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         style: const ButtonStyle(),
                       ),
                       const Divider(),
-                      const SizedBox(
-                        height: 07,
+                      TextButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.send),
+                        label: const Text(
+                          "Feedback",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        style: const ButtonStyle(),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.headset_mic_sharp),
+                        label: const Text(
+                          "Contact Us",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        style: const ButtonStyle(),
                       ),
                       TextButton.icon(
                         onPressed: () {

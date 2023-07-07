@@ -44,7 +44,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 "There is no notification yet",
                 style: TextStyle(fontSize: 17),
               ),
-            )
+            ),
           ],
         ),
       ),

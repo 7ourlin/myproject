@@ -49,7 +49,7 @@ class _AboutPageState extends State<AboutPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
-                      height: 15,
+                      height: 19,
                     ),
                     Text(
                       "   About Constructour",
@@ -59,7 +59,55 @@ class _AboutPageState extends State<AboutPage> {
                     const Padding(
                       padding: EdgeInsets.only(left: 11.0, top: 5, right: 11),
                       child: Text(
-                        " This app has been developed as a project for our flutter course completion with a concept to provide construction related services at the tip of your finger.",
+                        " This app has been developed as a project for our flutter course completion with a concept to provide construction related services at the tip of your finger.\n \n The application provide construction materials, machineries, consultants and manpower to purchase or hire easily.",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(fontSize: 19),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "   Standard development environment:",
+                      style: GoogleFonts.abel(
+                          fontSize: 27, fontWeight: FontWeight.bold),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 11.0, top: 5, right: 11),
+                      child: Text(
+                        " -> Visual Studio Code",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(fontSize: 19),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "   Programming Language:",
+                      style: GoogleFonts.abel(
+                          fontSize: 27, fontWeight: FontWeight.bold),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 11.0, top: 5, right: 11),
+                      child: Text(
+                        " -> Dart",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(fontSize: 19),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "   Framework:",
+                      style: GoogleFonts.abel(
+                          fontSize: 27, fontWeight: FontWeight.bold),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 11.0, top: 5, right: 11),
+                      child: Text(
+                        " -> Flutter \n\ndevelopment requires either an Android device/ios device, chrome or an emulator",
                         textAlign: TextAlign.justify,
                         style: TextStyle(fontSize: 19),
                       ),

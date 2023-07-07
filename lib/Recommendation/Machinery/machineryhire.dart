@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // ignore_for_file: public_member_api_docs
-class MachineryHirePage extends StatefulWidget {
-  const MachineryHirePage({super.key, required this.data});
+class DetailPage extends StatefulWidget {
+  const DetailPage({super.key, required this.data});
 
   final Map<String, dynamic> data;
 
   @override
-  _MachineryHirePageState createState() => _MachineryHirePageState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _MachineryHirePageState extends State<MachineryHirePage> {
+class _DetailPageState extends State<DetailPage> {
   final controller = PageController(viewportFraction: 0.8, keepPage: true);
 
   @override
@@ -83,8 +83,18 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
                 color: Colors.grey[200],
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '   Description: ${widget.data["description"]}',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Description:',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '    ${widget.data["description"]}',
+                        textAlign: TextAlign.justify,
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -92,7 +102,7 @@ class _MachineryHirePageState extends State<MachineryHirePage> {
             SizedBox(
               height: 20,
               child: Text(
-                "₹ ${widget.data["price"]}",
+                "Cost :    ₹ ${widget.data["price"]}",
                 style: const TextStyle(fontSize: 18),
               ),
             ),
