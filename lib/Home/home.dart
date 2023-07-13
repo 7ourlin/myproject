@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:myproject/Home/carousel.dart';
 
 import '../Router/router.gr.dart';
@@ -55,7 +56,10 @@ class _HomePageState extends State<HomePage> {
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color.fromARGB(255, 2, 57, 103), Colors.green],
+                    colors: [
+                      Colors.redAccent,
+                      Colors.blueAccent,
+                    ],
                   ),
                 ),
                 child: Column(
@@ -107,9 +111,9 @@ class _HomePageState extends State<HomePage> {
                                 margin: const EdgeInsets.all(3),
                                 child: ElevatedButton(
                                   style: ButtonStyle(
-                                    side: MaterialStatePropertyAll(
-                                      BorderSide(color: Colors.grey.shade300),
-                                    ),
+                                    // side: MaterialStatePropertyAll(
+                                    //   BorderSide(color: Colors.grey.shade300),
+                                    // ),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(30),
@@ -118,8 +122,9 @@ class _HomePageState extends State<HomePage> {
                                     elevation: MaterialStateProperty.all(0),
                                     backgroundColor: MaterialStatePropertyAll(
                                         tabindex == index
-                                            ? Colors.grey
-                                            : Colors.white), //ternaryOperator
+                                            ? HexColor("#191C27")
+                                            : Colors.white.withOpacity(
+                                                0.5)), //ternaryOperator
                                   ),
                                   onPressed: () {
                                     tabindex = index;
@@ -128,7 +133,9 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(
                                     recommendation[index].toString(),
                                     style: GoogleFonts.signikaNegative(
-                                      color: Colors.black,
+                                      color: tabindex == index
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: 15,
                                     ),
                                   ),
@@ -235,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           StreamBuilder(
                             stream: machineryStream,
-                            builder: (BuildContext,
+                            builder: (context,
                                 AsyncSnapshot<
                                         QuerySnapshot<Map<String, dynamic>>>
                                     snapshot) {
@@ -375,6 +382,10 @@ class _HomePageState extends State<HomePage> {
                                     );
                                   },
                                 );
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Text("Loading");
                               } else {
                                 return const CircularProgressIndicator();
                               }
