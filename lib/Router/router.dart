@@ -17,6 +17,7 @@ import '../Home/about.dart';
 import '../Home/testing.dart';
 import '../LoginPage/login_page.dart';
 import '../Navigation Bar/notification.dart';
+import '../Navigation Bar/test.dart';
 import '../Recommendation/Machinery/machineryhire.dart';
 import '../Recommendation/architecture.dart';
 import '../Signin/sign_in.dart';
@@ -28,6 +29,7 @@ import '../Signin/sign_in.dart';
       page: SigninPage,
     ),
     AutoRoute(page: ForgotPasswordPage),
+    AutoRoute(page: UserInformationPage),
     AutoRoute(page: OtpPage),
     AutoRoute(page: AboutPage),
     AutoRoute(page: EngineerPage),

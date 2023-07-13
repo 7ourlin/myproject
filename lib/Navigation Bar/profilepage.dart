@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,39 +13,58 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  FirebaseFirestore fs = FirebaseFirestore.instance;
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser!;
   final _formKey = GlobalKey<FormState>();
 
-  Map<String, dynamic>? data;
+  // Map<String, dynamic>? data;
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fs.collection("users").doc(user.email).get().then((value) {
-      var d = value.data();
-      // log(d.toString());   //Use this log to print data in console
-      setState(() {
-        data = d;
-      });
-    });
+  checkEmptyController() {
+    if (nameController.text != "" && addressController.text != "") {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  Future<void> updateProfile() async {
+    try {
+      await fireStore.collection('users').doc(user.email).update({
+        'name': nameController.text,
+        'address': addressController.text,
+      }).whenComplete(() {
+        EasyLoading.showSuccess("successfully updated");
+      });
+      log('Document updated successfully!');
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(title: Text("$e"));
+        },
+      );
+      log('Error updating document: $e');
+    }
+  }
+
+  // @override
+  // void initState() {
+  //   // implement initState
+  //   super.initState();
+  //   fs.collection("users").doc(user.email).get().then((value) {
+  //     var d = value.data();
+  //     // log(d.toString());   //Use this log to print data in console
+  //     setState(() {
+  //       data = d;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     'P r o f i l e  ',
-      //     style: GoogleFonts.abel(
-      //         color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
-      //   ),
-      //   iconTheme: const IconThemeData(color: Colors.black),
-      //   elevation: 0,
-      //   centerTitle: true,
-      //   backgroundColor: Colors.yellow[700],
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -74,6 +96,8 @@ class _ProfilePageState extends State<ProfilePage> {
               Center(
                   child: InkWell(
                 onTap: () {
+                  // nameController.text = data?["name"];
+                  // addressController.text = data?["address"];
                   showModalBottomSheet(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
@@ -123,14 +147,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               const SizedBox(height: 15.0),
                               TextFormField(
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(),
+                                // keyboardType:
+                                //     const TextInputType.numberWithOptions(),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter some text';
                                   }
                                   return null;
                                 },
+                                controller: nameController,
                                 style: const TextStyle(fontSize: 18),
                                 decoration: InputDecoration(
                                   hintText: 'User Name',
@@ -151,6 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   }
                                   return null;
                                 },
+                                controller: addressController,
                                 style: const TextStyle(fontSize: 18),
                                 decoration: InputDecoration(
                                   hintText: 'Address',
@@ -183,6 +209,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 MaterialStatePropertyAll(
                                                     Colors.grey.shade100)),
                                         onPressed: () {
+                                          nameController.clear();
+                                          addressController.clear();
                                           Navigator.pop(context);
                                         },
                                         child: Text(
@@ -220,6 +248,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                               borderRadius:
                                                   BorderRadius.circular(30))),
                                       onPressed: () {
+                                        if (checkEmptyController()) {
+                                          updateProfile();
+                                        } else {
+                                          return;
+                                        }
+                                        nameController.clear();
+                                        addressController.clear();
                                         Navigator.pop(context);
                                       },
                                       child: const Text(
@@ -250,133 +285,234 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Divider(),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 7, right: 1),
-                child: Column(
-                  children: [
-                    Card(
-                      child: ListTile(
-                        style: ListTileStyle.drawer,
-                        leading: const Icon(Icons.account_circle),
-                        title: const Text(
-                          "User Name:  ",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text(
-                          "${data?["name"]}",
-                          style: const TextStyle(
-                              fontSize: 17,
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(user.email)
+                    .snapshots(),
+                builder: (context,
+                    AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  if (snapshot.hasData) {
+                    var d = snapshot.data?.data();
+                    log(d.toString());
 
-                    const Card(
-                      child: ListTile(
-                        style: ListTileStyle.drawer,
-                        leading: Icon(Icons.phone_in_talk_sharp),
-                        title: Text(
-                          "Contact:",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                        subtitle: Text(
-                          "2563718673",
-                          style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        style: ListTileStyle.drawer,
-                        leading: const Icon(Icons.mail),
-                        title: const Text(
-                          "E-mail:",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        subtitle: Text(
-                          "${data?["email"]}",
-                          style: const TextStyle(
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        style: ListTileStyle.drawer,
-                        leading: const Icon(Icons.home_work),
-                        title: const Text(
-                          "Address:",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                        subtitle: Text(
-                          "${data?["address"]}",
-                          style: const TextStyle(
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          height: 37,
-                          width: 155,
-                          decoration: BoxDecoration(
-                              color: Colors.cyanAccent[100],
-                              //border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: MaterialButton(
-                            onPressed: () {},
-                            child: const Text(
-                              "VIEW ORDER HISTORY",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          height: 37,
-                          width: 111,
-                          decoration: BoxDecoration(
-                              color: Colors.cyanAccent[100],
-                              //border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: MaterialButton(
-                              onPressed: () {},
-                              child: const Text(
-                                " Get Help  :)",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                    if (d == null) {
+                      return const Text("data");
+                    } else {
+                      return Column(
+                        children: [
+                          // Text("${d["name"]}"),
+                          // Text("${d["address"]}"),
+
+                          Card(
+                            child: ListTile(
+                              style: ListTileStyle.drawer,
+                              leading: const Icon(Icons.account_circle),
+                              title: const Text(
+                                "User Name:  ",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              subtitle: Text(
+                                "${d["name"]}",
+                                style: const TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // ListView.builder(
-                    //   itemCount: 3,
-                    //   itemBuilder: (context, index) {
-                    //     return const ListTile();
-                    //   },
-                    // )
-                  ],
-                ),
+
+                          const Card(
+                            child: ListTile(
+                              style: ListTileStyle.drawer,
+                              leading: Icon(Icons.phone_in_talk_sharp),
+                              title: Text(
+                                "Contact:",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              ),
+                              subtitle: Text(
+                                "2563718673",
+                                style: TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              style: ListTileStyle.drawer,
+                              leading: const Icon(Icons.mail),
+                              title: const Text(
+                                "E-mail:",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              subtitle: Text(
+                                "${d["email"]}",
+                                style: const TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              style: ListTileStyle.drawer,
+                              leading: const Icon(Icons.home_work),
+                              title: const Text(
+                                "Address:",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              ),
+                              subtitle: Text(
+                                "${d["address"]}",
+                                style: const TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  }
+
+                  return const SizedBox();
+                },
               ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 7, right: 1),
+              //   child: Column(
+              //     children: [
+              //       Card(
+              //         child: ListTile(
+              //           style: ListTileStyle.drawer,
+              //           leading: const Icon(Icons.account_circle),
+              //           title: const Text(
+              //             "User Name:  ",
+              //             style: TextStyle(
+              //               fontSize: 20,
+              //             ),
+              //           ),
+              //           subtitle: Text(
+              //             "${data?["name"]}",
+              //             style: const TextStyle(
+              //                 fontSize: 17,
+              //                 color: Colors.blueGrey,
+              //                 fontWeight: FontWeight.bold),
+              //           ),
+              //         ),
+              //       ),
+
+              //       const Card(
+              //         child: ListTile(
+              //           style: ListTileStyle.drawer,
+              //           leading: Icon(Icons.phone_in_talk_sharp),
+              //           title: Text(
+              //             "Contact:",
+              //             style: TextStyle(color: Colors.black, fontSize: 20),
+              //           ),
+              //           subtitle: Text(
+              //             "2563718673",
+              //             style: TextStyle(
+              //                 color: Colors.blueGrey,
+              //                 fontWeight: FontWeight.bold,
+              //                 fontSize: 17),
+              //           ),
+              //         ),
+              //       ),
+              //       Card(
+              //         child: ListTile(
+              //           style: ListTileStyle.drawer,
+              //           leading: const Icon(Icons.mail),
+              //           title: const Text(
+              //             "E-mail:",
+              //             style: TextStyle(fontSize: 20),
+              //           ),
+              //           subtitle: Text(
+              //             "${data?["email"]}",
+              //             style: const TextStyle(
+              //                 color: Colors.blueGrey,
+              //                 fontWeight: FontWeight.bold,
+              //                 fontSize: 17),
+              //           ),
+              //         ),
+              //       ),
+              //       Card(
+              //         child: ListTile(
+              //           style: ListTileStyle.drawer,
+              //           leading: const Icon(Icons.home_work),
+              //           title: const Text(
+              //             "Address:",
+              //             style: TextStyle(color: Colors.black, fontSize: 20),
+              //           ),
+              //           subtitle: Text(
+              //             "${data?["address"]}",
+              //             style: const TextStyle(
+              //                 color: Colors.blueGrey,
+              //                 fontWeight: FontWeight.bold,
+              //                 fontSize: 17),
+              //           ),
+              //         ),
+              //       ),
+              //       const SizedBox(
+              //         height: 20,
+              //       ),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: [
+              //           Container(
+              //             height: 37,
+              //             width: 155,
+              //             decoration: BoxDecoration(
+              //                 color: Colors.cyanAccent[100],
+              //                 //border: Border.all(color: Colors.grey),
+              //                 borderRadius: BorderRadius.circular(20)),
+              //             child: MaterialButton(
+              //               onPressed: () {},
+              //               child: const Text(
+              //                 "VIEW ORDER HISTORY",
+              //                 style: TextStyle(fontWeight: FontWeight.bold),
+              //               ),
+              //             ),
+              //           ),
+              //           const SizedBox(
+              //             width: 10,
+              //           ),
+              //           Container(
+              //             height: 37,
+              //             width: 111,
+              //             decoration: BoxDecoration(
+              //                 color: Colors.cyanAccent[100],
+              //                 //border: Border.all(color: Colors.grey),
+              //                 borderRadius: BorderRadius.circular(20)),
+              //             child: Center(
+              //               child: MaterialButton(
+              //                 onPressed: () {},
+              //                 child: const Text(
+              //                   " Get Help  :)",
+              //                   style: TextStyle(fontWeight: FontWeight.bold),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       // ListView.builder(
+              //       //   itemCount: 3,
+              //       //   itemBuilder: (context, index) {
+              //       //     return const ListTile();
+              //       //   },
+              //       // )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

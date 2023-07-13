@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:myproject/Router/router.gr.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -59,25 +61,30 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 80),
               child: Icon(
                 Icons.remove_shopping_cart,
                 size: 150,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 70),
               child: Text(
                 "Your cart is empty",
                 style: TextStyle(fontSize: 30),
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  context.router.push(const UserInformationRoute());
+                },
+                child: const Text("data"))
             //Use this button to update product
 
             // ElevatedButton(

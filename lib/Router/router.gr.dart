@@ -11,216 +11,227 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:flutter/material.dart' as _i19;
+import 'package:auto_route/auto_route.dart' as _i19;
+import 'package:flutter/material.dart' as _i20;
 
-import '../Core/auth_flow_page.dart' as _i10;
+import '../Core/auth_flow_page.dart' as _i11;
 import '../ForgotPW/forgotpw.dart' as _i2;
-import '../ForgotPW/otp.dart' as _i3;
-import '../Home/about.dart' as _i4;
-import '../Home/dashboard.dart' as _i11;
-import '../Home/home.dart' as _i13;
-import '../Home/testing.dart' as _i9;
-import '../LoginPage/login_page.dart' as _i12;
-import '../Navigation%20Bar/cart.dart' as _i16;
-import '../Navigation%20Bar/notification.dart' as _i14;
-import '../Navigation%20Bar/profilepage.dart' as _i17;
-import '../Navigation%20Bar/wishlist.dart' as _i15;
-import '../Recommendation/architecture.dart' as _i7;
-import '../Recommendation/building_material.dart' as _i6;
-import '../Recommendation/Engineer.dart' as _i5;
-import '../Recommendation/Machinery/machineryhire.dart' as _i8;
+import '../ForgotPW/otp.dart' as _i4;
+import '../Home/about.dart' as _i5;
+import '../Home/dashboard.dart' as _i12;
+import '../Home/home.dart' as _i14;
+import '../Home/testing.dart' as _i10;
+import '../LoginPage/login_page.dart' as _i13;
+import '../Navigation%20Bar/cart.dart' as _i17;
+import '../Navigation%20Bar/notification.dart' as _i15;
+import '../Navigation%20Bar/profilepage.dart' as _i18;
+import '../Navigation%20Bar/test.dart' as _i3;
+import '../Navigation%20Bar/wishlist.dart' as _i16;
+import '../Recommendation/architecture.dart' as _i8;
+import '../Recommendation/building_material.dart' as _i7;
+import '../Recommendation/Engineer.dart' as _i6;
+import '../Recommendation/Machinery/machineryhire.dart' as _i9;
 import '../Signin/sign_in.dart' as _i1;
 
-class AppRouter extends _i18.RootStackRouter {
-  AppRouter([_i19.GlobalKey<_i19.NavigatorState>? navigatorKey])
+class AppRouter extends _i19.RootStackRouter {
+  AppRouter([_i20.GlobalKey<_i20.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i18.PageFactory> pagesMap = {
+  final Map<String, _i19.PageFactory> pagesMap = {
     SigninRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SigninPage(),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.ForgotPasswordPage(),
       );
     },
-    OtpRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+    UserInformationRoute.name: (routeData) {
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.OtpPage(),
+        child: const _i3.UserInformationPage(),
+      );
+    },
+    OtpRoute.name: (routeData) {
+      return _i19.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i4.OtpPage(),
       );
     },
     AboutRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.AboutPage(),
+        child: const _i5.AboutPage(),
       );
     },
     EngineerRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.EngineerPage(),
+        child: const _i6.EngineerPage(),
       );
     },
     BuildingMaterialRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.BuildingMaterialPage(),
+        child: const _i7.BuildingMaterialPage(),
       );
     },
     ArchitectureRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.ArchitecturePage(),
+        child: const _i8.ArchitecturePage(),
       );
     },
     DetailRoute.name: (routeData) {
       final args = routeData.argsAs<DetailRouteArgs>();
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i8.DetailPage(
+        child: _i9.DetailPage(
           key: args.key,
           data: args.data,
         ),
       );
     },
     TestingRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.TestingPage(),
+        child: const _i10.TestingPage(),
       );
     },
     AuthflowRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.AuthflowPage(),
+        child: const _i11.AuthflowPage(),
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.DashboardPage(),
+        child: const _i12.DashboardPage(),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.LoginPage(),
+        child: const _i13.LoginPage(),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i13.HomePage(),
+        child: const _i14.HomePage(),
       );
     },
     NotificationRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i14.NotificationPage(),
+        child: const _i15.NotificationPage(),
       );
     },
     WishlistRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i15.WishlistPage(),
+        child: const _i16.WishlistPage(),
       );
     },
     CartRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i16.CartPage(),
+        child: const _i17.CartPage(),
       );
     },
     ProfileRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i17.ProfilePage(),
+        child: const _i18.ProfilePage(),
       );
     },
   };
 
   @override
-  List<_i18.RouteConfig> get routes => [
-        _i18.RouteConfig(
+  List<_i19.RouteConfig> get routes => [
+        _i19.RouteConfig(
           SigninRoute.name,
           path: '/signin-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           ForgotPasswordRoute.name,
           path: '/forgot-password-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
+          UserInformationRoute.name,
+          path: '/user-information-page',
+        ),
+        _i19.RouteConfig(
           OtpRoute.name,
           path: '/otp-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           AboutRoute.name,
           path: '/about-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           EngineerRoute.name,
           path: '/engineer-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           BuildingMaterialRoute.name,
           path: '/building-material-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           ArchitectureRoute.name,
           path: '/architecture-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           DetailRoute.name,
           path: '/detail-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           TestingRoute.name,
           path: '/testing-page',
         ),
-        _i18.RouteConfig(
+        _i19.RouteConfig(
           AuthflowRoute.name,
           path: '/',
           children: [
-            _i18.RouteConfig(
+            _i19.RouteConfig(
               DashboardRoute.name,
               path: 'dashboard-page',
               parent: AuthflowRoute.name,
               children: [
-                _i18.RouteConfig(
+                _i19.RouteConfig(
                   HomeRoute.name,
                   path: 'home-page',
                   parent: DashboardRoute.name,
                 ),
-                _i18.RouteConfig(
+                _i19.RouteConfig(
                   NotificationRoute.name,
                   path: 'notification-page',
                   parent: DashboardRoute.name,
                 ),
-                _i18.RouteConfig(
+                _i19.RouteConfig(
                   WishlistRoute.name,
                   path: 'wishlist-page',
                   parent: DashboardRoute.name,
                 ),
-                _i18.RouteConfig(
+                _i19.RouteConfig(
                   CartRoute.name,
                   path: 'cart-page',
                   parent: DashboardRoute.name,
                 ),
-                _i18.RouteConfig(
+                _i19.RouteConfig(
                   ProfileRoute.name,
                   path: 'profile-page',
                   parent: DashboardRoute.name,
                 ),
               ],
             ),
-            _i18.RouteConfig(
+            _i19.RouteConfig(
               LoginRoute.name,
               path: 'login-page',
               parent: AuthflowRoute.name,
@@ -232,7 +243,7 @@ class AppRouter extends _i18.RootStackRouter {
 
 /// generated route for
 /// [_i1.SigninPage]
-class SigninRoute extends _i18.PageRouteInfo<void> {
+class SigninRoute extends _i19.PageRouteInfo<void> {
   const SigninRoute()
       : super(
           SigninRoute.name,
@@ -244,7 +255,7 @@ class SigninRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ForgotPasswordPage]
-class ForgotPasswordRoute extends _i18.PageRouteInfo<void> {
+class ForgotPasswordRoute extends _i19.PageRouteInfo<void> {
   const ForgotPasswordRoute()
       : super(
           ForgotPasswordRoute.name,
@@ -255,8 +266,20 @@ class ForgotPasswordRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.OtpPage]
-class OtpRoute extends _i18.PageRouteInfo<void> {
+/// [_i3.UserInformationPage]
+class UserInformationRoute extends _i19.PageRouteInfo<void> {
+  const UserInformationRoute()
+      : super(
+          UserInformationRoute.name,
+          path: '/user-information-page',
+        );
+
+  static const String name = 'UserInformationRoute';
+}
+
+/// generated route for
+/// [_i4.OtpPage]
+class OtpRoute extends _i19.PageRouteInfo<void> {
   const OtpRoute()
       : super(
           OtpRoute.name,
@@ -267,8 +290,8 @@ class OtpRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.AboutPage]
-class AboutRoute extends _i18.PageRouteInfo<void> {
+/// [_i5.AboutPage]
+class AboutRoute extends _i19.PageRouteInfo<void> {
   const AboutRoute()
       : super(
           AboutRoute.name,
@@ -279,8 +302,8 @@ class AboutRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.EngineerPage]
-class EngineerRoute extends _i18.PageRouteInfo<void> {
+/// [_i6.EngineerPage]
+class EngineerRoute extends _i19.PageRouteInfo<void> {
   const EngineerRoute()
       : super(
           EngineerRoute.name,
@@ -291,8 +314,8 @@ class EngineerRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.BuildingMaterialPage]
-class BuildingMaterialRoute extends _i18.PageRouteInfo<void> {
+/// [_i7.BuildingMaterialPage]
+class BuildingMaterialRoute extends _i19.PageRouteInfo<void> {
   const BuildingMaterialRoute()
       : super(
           BuildingMaterialRoute.name,
@@ -303,8 +326,8 @@ class BuildingMaterialRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.ArchitecturePage]
-class ArchitectureRoute extends _i18.PageRouteInfo<void> {
+/// [_i8.ArchitecturePage]
+class ArchitectureRoute extends _i19.PageRouteInfo<void> {
   const ArchitectureRoute()
       : super(
           ArchitectureRoute.name,
@@ -315,10 +338,10 @@ class ArchitectureRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.DetailPage]
-class DetailRoute extends _i18.PageRouteInfo<DetailRouteArgs> {
+/// [_i9.DetailPage]
+class DetailRoute extends _i19.PageRouteInfo<DetailRouteArgs> {
   DetailRoute({
-    _i19.Key? key,
+    _i20.Key? key,
     required Map<String, dynamic> data,
   }) : super(
           DetailRoute.name,
@@ -338,7 +361,7 @@ class DetailRouteArgs {
     required this.data,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
   final Map<String, dynamic> data;
 
@@ -349,8 +372,8 @@ class DetailRouteArgs {
 }
 
 /// generated route for
-/// [_i9.TestingPage]
-class TestingRoute extends _i18.PageRouteInfo<void> {
+/// [_i10.TestingPage]
+class TestingRoute extends _i19.PageRouteInfo<void> {
   const TestingRoute()
       : super(
           TestingRoute.name,
@@ -361,9 +384,9 @@ class TestingRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.AuthflowPage]
-class AuthflowRoute extends _i18.PageRouteInfo<void> {
-  const AuthflowRoute({List<_i18.PageRouteInfo>? children})
+/// [_i11.AuthflowPage]
+class AuthflowRoute extends _i19.PageRouteInfo<void> {
+  const AuthflowRoute({List<_i19.PageRouteInfo>? children})
       : super(
           AuthflowRoute.name,
           path: '/',
@@ -374,9 +397,9 @@ class AuthflowRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.DashboardPage]
-class DashboardRoute extends _i18.PageRouteInfo<void> {
-  const DashboardRoute({List<_i18.PageRouteInfo>? children})
+/// [_i12.DashboardPage]
+class DashboardRoute extends _i19.PageRouteInfo<void> {
+  const DashboardRoute({List<_i19.PageRouteInfo>? children})
       : super(
           DashboardRoute.name,
           path: 'dashboard-page',
@@ -387,8 +410,8 @@ class DashboardRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.LoginPage]
-class LoginRoute extends _i18.PageRouteInfo<void> {
+/// [_i13.LoginPage]
+class LoginRoute extends _i19.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -399,8 +422,8 @@ class LoginRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.HomePage]
-class HomeRoute extends _i18.PageRouteInfo<void> {
+/// [_i14.HomePage]
+class HomeRoute extends _i19.PageRouteInfo<void> {
   const HomeRoute()
       : super(
           HomeRoute.name,
@@ -411,8 +434,8 @@ class HomeRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.NotificationPage]
-class NotificationRoute extends _i18.PageRouteInfo<void> {
+/// [_i15.NotificationPage]
+class NotificationRoute extends _i19.PageRouteInfo<void> {
   const NotificationRoute()
       : super(
           NotificationRoute.name,
@@ -423,8 +446,8 @@ class NotificationRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.WishlistPage]
-class WishlistRoute extends _i18.PageRouteInfo<void> {
+/// [_i16.WishlistPage]
+class WishlistRoute extends _i19.PageRouteInfo<void> {
   const WishlistRoute()
       : super(
           WishlistRoute.name,
@@ -435,8 +458,8 @@ class WishlistRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.CartPage]
-class CartRoute extends _i18.PageRouteInfo<void> {
+/// [_i17.CartPage]
+class CartRoute extends _i19.PageRouteInfo<void> {
   const CartRoute()
       : super(
           CartRoute.name,
@@ -447,8 +470,8 @@ class CartRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.ProfilePage]
-class ProfileRoute extends _i18.PageRouteInfo<void> {
+/// [_i18.ProfilePage]
+class ProfileRoute extends _i19.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
           ProfileRoute.name,
